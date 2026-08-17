@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "The Authentic Hub — Zen Mode",
+  "version": "0.1.0",
+  "description": "Silently filters AI-disclosed posts out of Instagram Reels & TikTok feeds. PoC / Sprint 1.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "*://*.instagram.com/*",
+    "*://*.tiktok.com/*",
+    "http://localhost:8000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.instagram.com/*"],
+      "js": ["forensics.js", "instagram.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://*.tiktok.com/*"],
+      "js": ["forensics.js", "tiktok.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Authentic Hub"
+  }
+}
